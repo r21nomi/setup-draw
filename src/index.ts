@@ -1,8 +1,9 @@
-import p5 from 'p5'
+import p5 from 'p5';
 // @ts-ignore
-import vertexShader from '~/shader/vertexShader.vert'
+import vertexShader from '~/shader/vertexShader.vert';
 // @ts-ignore
-import fragmentShader from '~/shader/fragmentShader.frag'
+import fragmentShader from '~/shader/fragmentShader.frag';
+import {Feature} from "~/feature";
 
 let box1;
 let box2;
@@ -19,21 +20,25 @@ const bgColor = `#dddddd`;
 const fillColor = `#000000`;
 const fontSize = 24;
 let artType = 4;
+let feature;
+let colors;
 
 new p5((p: p5) => {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
 
+    generateColors();
+
     box1 = new Box(p.createVector(0, 0), p.createVector(p.width, p.height / 2));
     box2 = new Box(p.createVector(0, p.height / 2), p.createVector(p.width, p.height / 2));
 
-    graphics1 = p.createGraphics(box1.getArtWidth(), box1.getArtHeight(), p.WEBGL)
-    theShader1 = graphics1.createShader(vertexShader, fragmentShader)
-    graphics2 = p.createGraphics(box2.getArtWidth(), box2.getArtHeight(), p.WEBGL)
-    theShader2 = graphics2.createShader(vertexShader, fragmentShader)
+    graphics1 = p.createGraphics(box1.getArtWidth(), box1.getArtHeight(), p.WEBGL);
+    theShader1 = graphics1.createShader(vertexShader, fragmentShader);
+    graphics2 = p.createGraphics(box2.getArtWidth(), box2.getArtHeight(), p.WEBGL);
+    theShader2 = graphics2.createShader(vertexShader, fragmentShader);
 
-    _pixelDensity1 = graphics1.pixelDensity()
-    _pixelDensity2 = graphics2.pixelDensity()
+    _pixelDensity1 = graphics1.pixelDensity();
+    _pixelDensity2 = graphics2.pixelDensity();
 
     p.background(bgColor);
 
@@ -82,9 +87,18 @@ new p5((p: p5) => {
     _shader.setUniform("resolution", [_graphics.width * _pixelDensity, _graphics.height * _pixelDensity]);
     _shader.setUniform("time", _time);
     _shader.setUniform("artType", artType);
+    _shader.setUniform("color1", colors[0]);
+    _shader.setUniform("color2", colors[1]);
+    _shader.setUniform("color3", colors[2]);
+    _shader.setUniform("color4", colors[3]);
+    _shader.setUniform("color5", colors[4]);
     _graphics.shader(_shader);
     _graphics.quad(-offsetX, -offsetY, offsetX, -offsetY, offsetX, offsetY, -offsetX, offsetY);
     p.image(_graphics, _box.getArtX(), _box.getArtY());
+  }
+  const generateColors = () => {
+    feature = new Feature();
+    colors = feature.getPaletteAsRGB();
   }
 })
 
@@ -138,3 +152,7 @@ class Box {
     return this.getBoxHeight() - (this.artPadding.top + this.artPadding.bottom) - fontSize * 2;
   }
 }
+
+setInterval(() => {
+  location.reload();
+}, 3 * 60 * 1000);

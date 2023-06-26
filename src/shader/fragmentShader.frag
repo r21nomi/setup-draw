@@ -4,6 +4,11 @@ uniform vec2 resolution;
 uniform float time;
 uniform vec3 primaryColor;
 uniform float artType;
+uniform vec3 color1;
+uniform vec3 color2;
+uniform vec3 color3;
+uniform vec3 color4;
+uniform vec3 color5;
 
 #define TWO_PI  6.283
 
@@ -122,21 +127,21 @@ void main() {
         vec3 c3 = vec3(232, 15, 115);  // point3
         vec3 c4 = vec3(220, 220, 220);  // background
 
-        color = c0;
+        color = color1;
 
         if (noise > -0.2) {
-            color.rgb = c1;
+            color.rgb = color2;
         }
         if (noise > -0.1) {
-            color.rgb = c2;
+            color.rgb = color3;
         }
         if (noise > -0.05) {
-            color.rgb = c3;
+            color.rgb = color4;
         }
         if (noise > 0.0) {
-            color.rgb = c4;
+            color.rgb = color5;
         }
-        color = color / 255.0;
+        color = color;
     }
 
     gl_FragColor = vec4(color, 1.0);
