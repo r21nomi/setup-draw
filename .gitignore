@@ -1,4 +1,6 @@
 .idea
 .DS_Store
-/node_modules
-/public/*.js
+dist
+node_modules
+public/*.js
+public/index.js.LICENSE.txt

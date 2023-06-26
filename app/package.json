@@ -1,0 +1,33 @@
+{
+  "name": "setup_draw_app",
+  "version": "1.0.0",
+  "author": "NEORT",
+  "license": "MIT",
+  "build": {
+    "productName": "Setup Draw App",
+    "appId": "art.niinomi.app",
+    "mac": {
+      "icon": "icons/icon.icns"
+    },
+    "win": {
+      "icon": "icons/icon.ico"
+    }
+  },
+  "scripts": {
+    "dev": "cross-env electron .",
+    "package-mac": "electron-builder --mac --x64",
+    "package-win32": "electron-builder --win --ia32",
+    "package-win": "electron-builder --win --x64",
+    "package-pi": "electron-builder --linux --armv7l",
+    "package-ubuntu": "electron-builder build --linux AppImage",
+    "package": "yarn run package-mac && yarn run package-win"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "electron": "^20.2.0",
+    "electron-builder": "^23.3.3"
+  },
+  "dependencies": {
+    "electron-fetch": "^1.9.1"
+  }
+}
