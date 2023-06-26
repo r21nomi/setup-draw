@@ -59,6 +59,8 @@ new p5((p: p5) => {
     // const offsetY = 1;
     // graphics1.quad(-offsetX, -offsetY, offsetX, -offsetY, offsetX, offsetY, -offsetX, offsetY)
     // p.image(graphics1, box1.getArtX(), box1.getArtY())
+
+    p.frameRate(30);
   }
   p.draw = () => {
     p.noStroke();
